@@ -31,9 +31,9 @@ $ cargo new guessing_game
 $ cd guessing_game
 ```
 
-The first command, `cargo new`, takes the name of the project (`guessing_game`)
-as the first argument. The second command changes to the new project’s
-directory.
+The first command, `cargo new`, takes the name of the project
+(`guessing`_game`) as the first argument. The second command changes to the new
+project’s directory.
 
 Look at the generated *Cargo.toml* file:
 
@@ -45,8 +45,8 @@ name = "guessing_game"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at
-https://doc.rust-lang.org/cargo/reference/manifest.html
+# See more keys and their definitions at https://doc.rust-lang.org/cargo
+/reference/manifest.html
 
 [dependencies]
 ```
@@ -164,10 +164,10 @@ line. We use the `let` statement to create the variable. Here’s another exampl
 let apples = 5;
 ```
 
-This line creates a new variable named `apples` and binds it to the value 5. In
-Rust, variables are immutable by default, meaning once we give the variable a
-value, the value won’t change. We’ll be discussing this concept in detail in
-“Variables and Mutability” on page XX. To make a variable mutable, we add `mut`
+This line creates a new variable named `apples` and binds it to the value `5`.
+In Rust, variables are immutable by default, meaning once we give the variable
+a value, the value won’t change. We’ll be discussing this concept in detail in
+“Variables and Mutability” on page 32. To make a variable mutable, we add `mut`
 before the variable name:
 
 ```
@@ -188,7 +188,7 @@ is a string type provided by the standard library that is a growable, UTF-8
 encoded bit of text.
 
 The `::` syntax in the `::new` line indicates that `new` is an associated
-function of the `String` type. An *associated function* is a function that’s
+function of the `String` type. An *associated* *function* is a function that’s
 implemented on a type, in this case `String`. This `new` function creates a
 new, empty string. You’ll find a `new` function on many types because it’s a
 common name for a function that makes a new value of some kind.
@@ -326,7 +326,7 @@ let y = 10;
 println!("x = {x} and y + 2 = {}", y + 2);
 ```
 
-This code would print `x = 5 and y = 12`.
+This code would print `x = 5 and y + 2 = 12`.
 
 ### Testing the First Part
 
@@ -358,7 +358,7 @@ library. However, the Rust team does provide a `rand` crate at
 ### Using a Crate to Get More Functionality
 
 Remember that a crate is a collection of Rust source code files. The project
-we’ve been building is a *binary crate*, which is an executable. The `rand`
+we’ve been building is a *binary* *crate*, which is an executable. The `rand`
 crate is a *library crate*, which contains code that is intended to be used in
 other programs and can’t be executed on its own.
 
@@ -612,7 +612,7 @@ fn main() {
 
     println!("You guessed: {guess}");
 
-  2 match guess.3 cmp(&secret_number) {
+  2 match guess.3cmp(&secret_number) {
         Ordering::Less => println!("Too small!"),
         Ordering::Greater => println!("Too big!"),
         Ordering::Equal => println!("You win!"),
@@ -623,7 +623,7 @@ fn main() {
 Listing 2-4: Handling the possible return values of comparing two numbers
 
 First we add another `use` statement [1], bringing a type called
-`std::cmp::Ordering` into scope from the standard library. The `Ordering` type
+`std::cmp`::Ordering` into scope from the standard library. The `Ordering` type
 is another enum and has the variants `Less`, `Greater`, and `Equal`. These are
 the three outcomes that are possible when you compare two values.
 
@@ -649,10 +649,10 @@ the user has guessed 50 and the randomly generated secret number this time is
 38.
 
 When the code compares 50 to 38, the `cmp` method will return
-`Ordering::Greater` because 50 is greater than 38. The `match` expression gets
+`Ordering`::Greater` because 50 is greater than 38. The `match` expression gets
 the `Ordering::Greater` value and starts checking each arm’s pattern. It looks
 at the first arm’s pattern, `Ordering::Less`, and sees that the value
-`Ordering::Greater` does not match `Ordering::Less`, so it ignores the code in
+`Ordering`::Greater` does not match `Ordering::Less`, so it ignores the code in
 that arm and moves to the next arm. The next arm’s pattern is
 `Ordering::Greater`, which *does* match `Ordering::Greater`! The associated
 code in that arm will execute and print `Too big!` to the screen. The `match`
@@ -727,10 +727,10 @@ in the expression refers to the original `guess` variable that contained the
 input as a string. The `trim` method on a `String` instance will eliminate any
 whitespace at the beginning and end, which we must do to be able to compare the
 string to the `u32`, which can only contain numerical data. The user must press
-enter to satisfy `read_line` and input their guess, which adds a newline
-character to the string. For example, if the user types `5` and presses enter,
+ENTER to satisfy `read_line` and input their guess, which adds a newline
+character to the string. For example, if the user types `5` and presses ENTER,
 `guess` looks like this: `5\n`. The `\n` represents “newline.” (On Windows,
-pressing enter results in a carriage return and a newline, `\r\n`.) The `trim`
+pressing ENTER results in a carriage return and a newline, `\r\n`.) The `trim`
 method eliminates `\n` or `\r\n`, resulting in just `5`.
 
 The `parse` method on strings converts a string to another type. Here, we use
@@ -750,7 +750,7 @@ into numbers and so can easily cause errors. If, for example, the string
 contained `A`👍`%`, there would be no way to convert that to a number. Because
 it might fail, the `parse` method returns a `Result` type, much as the
 `read_line` method does (discussed earlier in “Handling Potential Failure with
-Result” on page XX). We’ll treat this `Result` the same way by using the
+Result” on page 17). We’ll treat this `Result` the same way by using the
 `expect` method again. If `parse` returns an `Err` `Result` variant because it
 couldn’t create a number from the string, the `expect` call will crash the game
 and print the message we give it. If `parse` can successfully convert the
@@ -783,7 +783,7 @@ Let’s change that by adding a loop!
 ## Allowing Multiple Guesses with Looping
 
 The `loop` keyword creates an infinite loop. We’ll add a loop to give users
-more chances at guessing the number:
+more chances at guessing the number.
 
 Filename: src/main.rs
 
@@ -811,9 +811,9 @@ and run the program again. The program will now ask for another guess forever,
 which actually introduces a new problem. It doesn’t seem like the user can quit!
 
 The user could always interrupt the program by using the keyboard shortcut
-ctrl-C. But there’s another way to escape this insatiable monster, as mentioned
+CTRL-C. But there’s another way to escape this insatiable monster, as mentioned
 in the `parse` discussion in “Comparing the Guess to the Secret Number” on page
-XX: if the user enters a non-number answer, the program will crash. We can take
+23: if the user enters a non-number answer, the program will crash. We can take
 advantage of that to allow the user to quit, as shown here:
 
 ```
@@ -914,7 +914,7 @@ If `parse` is *not* able to turn the string into a number, it will return an
 `Err` value that contains more information about the error. The `Err` value
 does not match the `Ok(num)` pattern in the first `match` arm, but it does
 match the `Err(_)` pattern in the second arm. The underscore, `_`, is a
-catchall value; in this example, we’re saying we want to match all `Err`
+catch-all value; in this example, we’re saying we want to match all `Err`
 values, no matter what information they have inside them. So the program will
 execute the second arm’s code, `continue`, which tells the program to go to the
 next iteration of the `loop` and ask for another guess. So, effectively, the

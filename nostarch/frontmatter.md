@@ -3,30 +3,50 @@
 This file is periodically generated from the content in the `/src/`
 directory, so all fixes need to be made in `/src/`.
 -->
-## About the Authors
 
-Carol Nichols is a member of the Rust Crates.io Team and a former member of the
-Rust Core Team. She’s a co-founder of Integer 32, LLC, the world’s first
+Unmatched: ReviewHead
+
+Unmatched: ReviewQuote
+
+Unmatched: ReviewSource
+
+Unmatched: ReviewQuote
+
+Unmatched: ReviewSource
+
+Unmatched: ReviewQuote
+
+Unmatched: ReviewSource
+
+Unmatched: ReviewQuote
+
+Unmatched: ReviewSource
+
+Unmatched: BookTitle
+      ## About the Authors
+
+**Steve** **Klabnik** was the lead for the Rust documentation team and was one
+of Rust’s core developers. A frequent speaker and a prolific open source
+contributor, he previously worked on projects such as Ruby and Ruby on Rails.
+
+**Carol Nichols** is a member of the Rust Crates.io Team and a former member of
+the Rust Core Team. She’s a co-founder of Integer 32, LLC, the world’s first
 Rust-focused software consultancy. Nichols has also organized the Rust Belt
 Rust Conference.
 
-Steve Klabnik was the lead for the Rust documentation team and was one of
-Rust’s core developers. A frequent speaker and a prolific open source
-contributor, he previously worked on projects such as Ruby and Ruby on Rails.
-
 ## About the Technical Reviewer
 
-JT is a Rust core team member and the co-creator of the Rust error message
+**JT** is a Rust core team member and the co-creator of the Rust error message
 format, Rust Language Server (RLS), and Nushell. They first started using Rust
-in 2011, and in 2016 joined Mozilla to work on Rust full time, helping to shape
+in 2011, and in 2016 joined Mozilla to work on Rust full-time, helping to shape
 its direction for widespread use. These days, they are a freelance Rust trainer
 and advocate for safe systems programming.
 
-## Brief Contents
 
-## Contents in Detail
+Unmatched: FrontmatterTitleContents
 
-## Foreword
+Unmatched: FrontmatterTitleContents
+      ## Foreword
 
 It wasn’t always so clear, but the Rust programming language is fundamentally
 about *empowerment*: no matter what kind of code you are writing now, Rust
@@ -36,7 +56,7 @@ domains than you did before.
 Take, for example, “systems-level” work that deals with low-level details of
 memory management, data representation, and concurrency. Traditionally, this
 realm of programming is seen as arcane, accessible to only a select few who
-have devoted the necessary years learning it to avoid its infamous pitfalls.
+have devoted the necessary years to learning it to avoid its infamous pitfalls.
 And even those who practice it do so with caution, lest their code be open to
 exploits, crashes, or corruption.
 
@@ -68,29 +88,11 @@ general. So dive in, get ready to learn—and welcome to the Rust community!
 
 Nicholas Matsakis and Aaron Turon
 
-## ACKNOWLEDGMENTS
-
-We would like to thank everyone who has worked on the Rust language for
-creating an amazing language worth writing a book about. We’re grateful to
-everyone in the Rust community for being welcoming and creating an environment
-worth welcoming more folks into.
-
-We’re especially thankful for everyone who read early versions of this book
-online and provided feedback, bug reports, and pull requests. Special thanks to
-Eduard-Mihai Burtescu, Alex Crichton, and JT for providing technical review,
-and to Karen Rustad Tölva for the cover art. Thank you to our team at No
-Starch, including Bill Pollock, Liz Chadwick, and Janelle Ludowise, for
-improving this book and bringing it to print.
-
-Carol is grateful for the opportunity to work on this book. She thanks her
-family for their constant love and support, especially her husband, Jake
-Goulding, and her daughter, Vivian.
-
 ## Preface
 
 This version of the text assumes you’re using Rust 1.62.0 (released 2022-06-30)
 or later with `edition="2021"` in the *Cargo.toml* file of all projects to
-configure them to use Rust 2021 edition idioms. See “Installation” on page XX
+configure them to use Rust 2021 edition idioms. See “Installation” on page 1
 for instructions on installing or updating Rust, and see Appendix E for
 information on editions.
 
@@ -111,15 +113,33 @@ continue to compile with the relevant edition in the project’s *Cargo.toml*,
 even as you update the Rust compiler version you’re using. That’s Rust’s
 backward-compatibility guarantees at work!
 
-## Introduction
+## Acknowledgments
 
-Welcome to *The Rust Programming Language*, an introductory book about Rust.
-The Rust programming language helps you write faster, more reliable software.
-High-level ergonomics and low-level control are often at odds in programming
-language design; Rust challenges that conflict. Through balancing powerful
-technical capacity and a great developer experience, Rust gives you the option
-to control low-level details (such as memory usage) without all the hassle
-traditionally associated with such control.
+We would like to thank everyone who has worked on the Rust language for
+creating an amazing language worth writing a book about. We’re grateful to
+everyone in the Rust community for being welcoming and creating an environment
+worth welcoming more folks into.
+
+We’re especially thankful for everyone who read early versions of this book
+online and provided feedback, bug reports, and pull requests. Special thanks to
+Eduard-Mihai Burtescu, Alex Crichton, and JT for providing technical review,
+and to Karen Rustad Tölva for the cover art. Thank you to our team at No
+Starch, including Bill Pollock, Liz Chadwick, and Janelle Ludowise, for
+improving this book and bringing it to print.
+
+Carol is grateful for the opportunity to work on this book. She thanks her
+family for their constant love and support, especially her husband, Jake
+Goulding, and her daughter, Vivian.
+
+
+Unmatched: FrontmatterTitleIntroduction
+      Welcome to *The Rust Programming Language*, an introductory book about
+Rust. The Rust programming language helps you write faster, more reliable
+software. High-level ergonomics and low-level control are often at odds in
+programming language design; Rust challenges that conflict. Through balancing
+powerful technical capacity and a great developer experience, Rust gives you
+the option to control low-level details (such as memory usage) without all the
+hassle traditionally associated with such control.
 
 ## Who Rust Is For
 
@@ -180,8 +200,8 @@ mean both how quickly Rust code can run and the speed at which Rust lets you
 write programs. The Rust compiler’s checks ensure stability through feature
 additions and refactoring. This is in contrast to the brittle legacy code in
 languages without these checks, which developers are often afraid to modify. By
-striving for zero-cost abstractions, higher-level features that compile to
-lower-level code as fast as code written manually, Rust endeavors to make safe
+striving for zero-cost abstractions—higher-level features that compile to
+lower-level code as fast as code written manually—Rust endeavors to make safe
 code be fast code as well.
 
 The Rust language hopes to support many other users as well; those mentioned
@@ -261,8 +281,8 @@ macros, and more about lifetimes, traits, types, functions, and closures.
 In **Chapter 20**, we’ll complete a project in which we’ll implement a
 low-level multithreaded web server!
 
-Finally, some appendices contain useful information about the language in a
-more reference-like format**. Appendix A** covers Rust’s keywords, **Appendix
+Finally, some appendixes contain useful information about the language in a
+more reference-like format. **Appendix A** covers Rust’s keywords, **Appendix
 B** covers Rust’s operators and symbols, **Appendix C** covers derivable traits
 provided by the standard library, **Appendix D** covers some useful development
 tools, and **Appendix E** explains Rust editions.
@@ -288,5 +308,27 @@ an issue or send a pull request on GitHub at
 *https://github.com/rust-lang/book/blob/main/CONTRIBUTING.md* for more details.
 
 The source code for the examples in this book, errata, and other information
-are available at *https://www.nostarch.com/Rust2021*.
+are available at *https://nostarch.com/rust-programming-language-2nd-edition*.
 
+PRAISE FOR THE ART OF CYBERWARFARE
+
+
+Unmatched: ReviewQuote
+
+Unmatched: ReviewSource
+
+Unmatched: ReviewQuote
+
+Unmatched: ReviewSource
+
+Unmatched: ReviewQuote
+
+Unmatched: ReviewSource
+
+Unmatched: ReviewQuote
+
+Unmatched: ReviewSource
+
+Unmatched: ReviewQuote
+
+Unmatched: ReviewSource

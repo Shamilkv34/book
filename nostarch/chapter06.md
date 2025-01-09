@@ -210,10 +210,13 @@ types of values
 
 This enum has four variants with different types:
 
-* `Quit` has no data associated with it at all.
-* `Move` has named fields, like a struct does.
-* `Write` includes a single `String`.
-* `ChangeColor` includes three `i32` values.
+`Quit`  Has no data associated with it at all
+
+`Move`  Has named fields, like a struct does
+
+`Write`  Includes a single `String`
+
+`ChangeColor`  Includes three `i32` values
 
 Defining an enum with variants such as the ones in Listing 6-2 is similar to
 defining different kinds of struct definitions, except the enum doesn’t use the
@@ -278,7 +281,7 @@ is no value there. In languages with null, variables can always be in one of
 two states: null or not-null.
 
 In his 2009 presentation “Null References: The Billion Dollar Mistake,” Tony
-Hoare, the inventor of null, has this to say:
+Hoare, the inventor of null, had this to say:
 
 > I call it my billion-dollar mistake. At that time, I was designing the first
 comprehensive type system for references in an object-oriented language. My
@@ -657,7 +660,7 @@ possibility in order for the code to be valid. Especially in the case of
 `None` case, it protects us from assuming that we have a value when we might
 have null, thus making the billion-dollar mistake discussed earlier impossible.
 
-### Catch-all Patterns and the _ Placeholder
+### Catch-All Patterns and the _ Placeholder
 
 Using enums, we can also take special actions for a few particular values, but
 for all other values take one default action. Imagine we’re implementing a game
@@ -722,7 +725,7 @@ ignoring all other values in the last arm; we haven’t forgotten anything.
 Finally, we’ll change the rules of the game one more time so that nothing else
 happens on your turn if you roll anything other than a 3 or a 7. We can express
 that by using the unit value (the empty tuple type we mentioned in “The Tuple
-Type” on page XX) as the code that goes with the `_` arm:
+Type” on page 40) as the code that goes with the `_` arm:
 
 ```
 let dice_roll = 9;

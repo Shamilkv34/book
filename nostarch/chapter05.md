@@ -23,7 +23,7 @@ program’s domain to take full advantage of Rust’s compile-time type checking
 
 ## Defining and Instantiating Structs
 
-Structs are similar to tuples, discussed in “The Tuple Type” on page XX, in
+Structs are similar to tuples, discussed in “The Tuple Type” on page 40, in
 that both hold multiple related values. Like tuples, the pieces of a struct can
 be different types. Unlike with tuples, in a struct you’ll name each piece of
 data so it’s clear what the values mean. Adding these names means that structs
@@ -210,13 +210,13 @@ the struct’s definition.
 
 Note that the struct update syntax uses `=` like an assignment; this is because
 it moves the data, just as we saw in “Variables and Data Interacting with Move”
-on page XX. In this example, we can no longer use `user1` after creating
+on page 64. In this example, we can no longer use `user1` after creating
 `user2` because the `String` in the `username` field of `user1` was moved into
 `user2`. If we had given `user2` new `String` values for both `email` and
 `username`, and thus only used the `active` and `sign_in_count` values from
 `user1`, then `user1` would still be valid after creating `user2`. Both
 `active` and `sign_in_count` are types that implement the `Copy` trait, so the
-behavior we discussed in “Stack-Only Data: Copy” on page XX would apply.
+behavior we discussed in “Stack-Only Data: Copy” on page 68 would apply.
 
 ### Using Tuple Structs Without Named Fields to Create Different Types
 
@@ -256,7 +256,7 @@ by the index to access an individual value.
 
 You can also define structs that don’t have any fields! These are called
 *unit-like structs* because they behave similarly to `()`, the unit type that
-we mentioned in “The Tuple Type” on page XX. Unit-like structs can be useful
+we mentioned in “The Tuple Type” on page 40. Unit-like structs can be useful
 when you need to implement a trait on some type but don’t have any data that
 you want to store in the type itself. We’ll discuss traits in Chapter 10.
 Here’s an example of declaring and instantiating a unit struct named
@@ -295,7 +295,7 @@ discuss in Chapter 10. Lifetimes ensure that the data referenced by a struct is
 valid for as long as the struct is. Let’s say you try to store a reference in a
 struct without specifying lifetimes, like the following in *src/main.rs*; this
 won’t work:
->
+
 > ```
 > struct User {
 >     active: bool,
@@ -313,11 +313,11 @@ won’t work:
 >     };
 > }
 > ```
->
+
 > The compiler will complain that it needs lifetime specifiers:
->
+
 > ```
-> $ `cargo run`
+> $ cargo run
 >    Compiling structs v0.1.0 (file:///projects/structs)
 > error[E0106]: missing lifetime specifier
 >  --> src/main.rs:3:15
@@ -346,7 +346,7 @@ won’t work:
 > 4 ~     email: &'a str,
 >   |
 > ```
->
+
 > In Chapter 10, we’ll discuss how to fix these errors so you can store
 references in structs, but for now, we’ll fix errors like these using owned
 types like `String` instead of references like `&str`.
@@ -403,7 +403,7 @@ The `area` function is supposed to calculate the area of one rectangle, but the
 function we wrote has two parameters, and it’s not clear anywhere in our
 program that the parameters are related. It would be more readable and more
 manageable to group width and height together. We’ve already discussed one way
-we might do that in “The Tuple Type” on page XX: by using tuples.
+we might do that in “The Tuple Type” on page 40: by using tuples.
 
 ### Refactoring with Tuples
 
@@ -622,7 +622,7 @@ returns ownership of the value.
 (`stderr`), as opposed to `println!`, which prints to the standard output
 console stream (`stdout`). We’ll talk more about `stderr` and `stdout` in
 “Writing Error Messages to Standard Error Instead of Standard Output” on page
-XX.
+270.
 
 Here’s an example where we’re interested in the value that gets assigned to the
 `width` field, as well as the value of the whole struct in `rect1`:
@@ -825,12 +825,12 @@ one of the few places in Rust that has this behavior.
 > Here’s how it works: when you call a method with `object.`something`()`, Rust
 automatically adds in `&`, `&mut`, or `*` so `object` matches the signature of
 the method. In other words, the following are the same:
->
+
 > ```
 > p1.distance(&p2);
 > (&p1).distance(&p2);
 > ```
->
+
 > The first one looks much cleaner. This automatic referencing behavior works
 because methods have a clear receiver—the type of `self`. Given the receiver
 and name of a method, Rust can figure out definitively whether the method is

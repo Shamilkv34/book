@@ -13,7 +13,7 @@ test our code, but it can do a lot more. In this chapter, we’ll discuss some o
 its other, more advanced features to show you how to do the following:
 
 * Customize your build through release profiles.
-* Publish libraries on *https://crates.i**o*.
+* Publish libraries on *https://crates.io*.
 * Organize large projects with workspaces.
 * Install binaries from *https://crates.io*.
 * Extend Cargo using custom commands.
@@ -160,16 +160,18 @@ We used the `# Examples` Markdown heading in Listing 14-1 to create a section
 in the HTML with the title “Examples.” Here are some other sections that crate
 authors commonly use in their documentation:
 
-* **Panics**: The scenarios in which the function being documented could panic.
+Panics  The scenarios in which the function being documented could panic.
 Callers of the function who don’t want their programs to panic should make sure
 they don’t call the function in these situations.
-* **Errors**: If the function returns a `Result`, describing the kinds of
-errors that might occur and what conditions might cause those errors to be
-returned can be helpful to callers so they can write code to handle the
-different kinds of errors in different ways.
-* **Safety**: If the function is `unsafe` to call (we discuss unsafety in
-Chapter 19), there should be a section explaining why the function is unsafe
-and covering the invariants that the function expects callers to uphold.
+
+Errors  If the function returns a `Result`, describing the kinds of errors that
+might occur and what conditions might cause those errors to be returned can be
+helpful to callers so they can write code to handle the different kinds of
+errors in different ways.
+
+Safety  If the function is `unsafe` to call (we discuss unsafety in Chapter
+19), there should be a section explaining why the function is unsafe and
+covering the invariants that the function expects callers to uphold.
 
 Most documentation comments don’t need all of these sections, but this is a
 good checklist to remind you of the aspects of your code users will be
@@ -197,7 +199,7 @@ filtered out; finished in 0.27s
 ```
 
 Now, if we change either the function or the example so the `assert_eq!` in the
-example panics and run `cargo test` again, we’ll see that the doc tests catch
+example panics, and run `cargo test` again, we’ll see that the doc tests catch
 that the example and the code are out of sync with each other!
 
 #### Commenting Contained Items
@@ -236,12 +238,12 @@ When we run `cargo doc --open`, these comments will display on the front page
 of the documentation for `my_crate` above the list of public items in the
 crate, as shown in Figure 14-2.
 
-Figure 14-2: Rendered documentation for `my_crate`, including the comment
-describing the crate as a whole
-
 Documentation comments within items are useful for describing crates and
 modules especially. Use them to explain the overall purpose of the container to
 help your users understand the crate’s organization.
+
+Figure 14-2: Rendered documentation for `my_crate`, including the comment
+describing the crate as a whole
 
 ### Exporting a Convenient Public API with pub use
 
@@ -471,8 +473,8 @@ error: failed to publish to registry at https://crates.io
 
 Caused by:
   the remote server responded with an error: missing or empty metadata fields:
-description, license. Please see https://doc.rust-
-lang.org/cargo/reference/manifest.html for how to upload metadata
+description, license. Please see https://doc.rust-lang.org/cargo/reference
+/manifest.html for how to upload metadata
 ```
 
 This results in an error because you’re missing some crucial information: a
@@ -481,7 +483,7 @@ and under what terms they can use it. In *Cargo.toml*, add a description that’
 just a sentence or two, because it will appear with your crate in search
 results. For the `license` field, you need to give a *license identifier
 value*. The Linux Foundation’s Software Package Data Exchange (SPDX) at
-*http://spdx.org/licenses* lists the identifiers you can use for this value.
+*https://spdx.org/licenses* lists the identifiers you can use for this value.
 For example, to specify that you’ve licensed your crate using the MIT License,
 add the `MIT` identifier:
 
@@ -559,7 +561,7 @@ anyone can easily add your crate as a dependency of their project.
 
 When you’ve made changes to your crate and are ready to release a new version,
 you change the `version` value specified in your *Cargo.toml* file and
-republish. Use the Semantic Versioning rules at *http://semver.org* to decide
+republish. Use the Semantic Versioning rules at *https://semver.org* to decide
 what an appropriate next version number is, based on the kinds of changes
 you’ve made. Then run `cargo publish` to upload the new version.
 
@@ -895,10 +897,10 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out;
 finished in 0.00s
 ```
 
-The first section of the output shows that the `it_works` test in the `add_one`
-crate passed. The next section shows that zero tests were found in the `adder`
-crate, and then the last section shows zero documentation tests were found in
-the `add_one` crate.
+The first section of the output shows that the `it_works` test in the
+`add`_one` crate passed. The next section shows that zero tests were found in
+the `adder` crate, and then the last section shows zero documentation tests
+were found in the `add_one` crate.
 
 We can also run tests for one particular crate in a workspace from the
 top-level directory by using the `-p` flag and specifying the name of the crate
@@ -948,7 +950,7 @@ convenient way for Rust developers to install tools that others have shared on
 targets. A *binary target* is the runnable program that is created if the crate
 has a *src/main.rs* file or another file specified as a binary, as opposed to a
 library target that isn’t runnable on its own but is suitable for including
-within other programs. Usually, crates have information in the *README* file
+within other programs. Usually, crates have information in the README file
 about whether a crate is a library, has a binary target, or both.
 
 All binaries installed with `cargo install` are stored in the installation

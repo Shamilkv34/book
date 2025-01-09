@@ -41,8 +41,8 @@ struct, smart pointers implement the `Deref` and `Drop` traits. The `Deref`
 trait allows an instance of the smart pointer struct to behave like a reference
 so you can write your code to work with either references or smart pointers.
 The `Drop` trait allows you to customize the code that’s run when an instance
-of the smart pointer goes out of scope. In this chapter, we’ll discuss both
-traits and demonstrate why they’re important to smart pointers.
+of the smart pointer goes out of scope. In this chapter, we’ll discuss both of
+these traits and demonstrate why they’re important to smart pointers.
 
 Given that the smart pointer pattern is a general design pattern used
 frequently in Rust, this chapter won’t cover every existing smart pointer. Many
@@ -56,16 +56,16 @@ the borrowing rules at runtime instead of compile time
 
 In addition, we’ll cover the *interior mutability* pattern where an immutable
 type exposes an API for mutating an interior value. We’ll also discuss
-*reference cycles*: how they can leak memory and how to prevent them.
+reference cycles: how they can leak memory and how to prevent them.
 
 Let’s dive in!
 
 ## Using Box<T> to Point to Data on the Heap
 
-The most straightforward smart pointer is a *box*, whose type is written
-`Box<T>`. Boxes allow you to store data on the heap rather than the stack. What
-remains on the stack is the pointer to the heap data. Refer to Chapter 4 to
-review the difference between the stack and the heap.
+The most straightforward smart pointer is a box, whose type is written
+`Box<T>`. *Boxes* allow you to store data on the heap rather than the stack.
+What remains on the stack is the pointer to the heap data. Refer to Chapter 4
+to review the difference between the stack and the heap.
 
 Boxes don’t have performance overhead, other than storing their data on the
 heap instead of on the stack. But they don’t have many extra capabilities
@@ -79,14 +79,14 @@ ensure the data won’t be copied when you do so
 implements a particular trait rather than being of a specific type
 
 We’ll demonstrate the first situation in “Enabling Recursive Types with Boxes”
-on page XX. In the second case, transferring ownership of a large amount of
-data can take a long time because the data is copied around on the stack. To
-improve performance in this situation, we can store the large amount of data on
-the heap in a box. Then, only the small amount of pointer data is copied around
-on the stack, while the data it references stays in one place on the heap. The
-third case is known as a *trait object*, and “Using Trait Objects That Allow
-for Values of Different Types” on page XX is devoted to that topic. So what you
-learn here you’ll apply again in that section!
+later in this chapter. In the second case, transferring ownership of a large
+amount of data can take a long time because the data is copied around on the
+stack. To improve performance in this situation, we can store the large amount
+of data on the heap in a box. Then, only the small amount of pointer data is
+copied around on the stack, while the data it references stays in one place on
+the heap. The third case is known as a *trait object*, and “Using Trait Objects
+That Allow for Values of Different Types” on page 379 is devoted to that topic.
+So what you learn here you’ll apply again in that section!
 
 ### Using Box<T> to Store Data on the Heap
 
@@ -108,7 +108,7 @@ Listing 15-1: Storing an `i32` value on the heap using a box
 
 We define the variable `b` to have the value of a `Box` that points to the
 value `5`, which is allocated on the heap. This program will print `b = 5`; in
-this case, we can access the data in the box similar to how we would if this
+this case, we can access the data in the box similarly to how we would if this
 data were on the stack. Just like any owned value, when a box goes out of
 scope, as `b` does at the end of `main`, it will be deallocated. The
 deallocation happens both for the box (stored on the stack) and the data it
@@ -123,8 +123,8 @@ wouldn’t be allowed to define if we didn’t have boxes.
 ### Enabling Recursive Types with Boxes
 
 A value of a *recursive type* can have another value of the same type as part
-of itself. Recursive types pose an issue because at compile time Rust needs to
-know how much space a type takes up. However, the nesting of values of
+of itself. Recursive types pose an issue because, at compile time, Rust needs
+to know how much space a type takes up. However, the nesting of values of
 recursive types could theoretically continue infinitely, so Rust can’t know how
 much space the value needs. Because boxes have a known size, we can enable
 recursive types by inserting a box in the recursive type definition.
@@ -155,8 +155,8 @@ Each item in a cons list contains two elements: the value of the current item
 and the next item. The last item in the list contains only a value called `Nil`
 without a next item. A cons list is produced by recursively calling the `cons`
 function. The canonical name to denote the base case of the recursion is `Nil`.
-Note that this is not the same as the “null” or “nil” concept in Chapter 6,
-which is an invalid or absent value.
+Note that this is not the same as the “null” or “nil” concept discussed in
+Chapter 6, which is an invalid or absent value.
 
 The cons list isn’t a commonly used data structure in Rust. Most of the time
 when you have a list of items in Rust, `Vec<T>` is a better choice to use.
@@ -512,12 +512,12 @@ implement the `Deref` trait.
 
 ### Implementing the Deref Trait
 
-As discussed in “Implementing a Trait on a Type” on page XX, to implement a
+As discussed in “Implementing a Trait on a Type” on page 193, to implement a
 trait we need to provide implementations for the trait’s required methods. The
 `Deref` trait, provided by the standard library, requires us to implement one
 method named `deref` that borrows `self` and returns a reference to the inner
 data. Listing 15-10 contains an implementation of `Deref` to add to the
-definition of `MyBox``<T>`.
+definition of `MyBox<T>`.
 
 Filename: src/main.rs
 
@@ -542,15 +542,15 @@ them in more detail in Chapter 19.
 
 We fill in the body of the `deref` method with `&self.0` so `deref` returns a
 reference to the value we want to access with the `*` operator [2]; recall from
-“Using Tuple Structs Without Named Fields to Create Different Types” on page XX
+“Using Tuple Structs Without Named Fields to Create Different Types” on page 89
 that `.0` accesses the first value in a tuple struct. The `main` function in
 Listing 15-9 that calls `*` on the `MyBox<T>` value now compiles, and the
 assertions pass!
 
 Without the `Deref` trait, the compiler can only dereference `&` references.
 The `deref` method gives the compiler the ability to take a value of any type
-that implements `Deref` and call the `deref` method to get a `&` reference that
-it knows how to dereference.
+that implements `Deref` and call the `deref` method to get an `&` reference
+that it knows how to dereference.
 
 When we entered `*y` in Listing 15-9, behind the scenes Rust actually ran this
 code:
@@ -671,9 +671,9 @@ operator on mutable references.
 Rust does deref coercion when it finds types and trait implementations in three
 cases:
 
-* From `&T` to `&U` when `T: Deref<Target=U>`
-* From `&mut T` to `&mut U` when `T: DerefMut<Target=U>`
-* From `&mut T` to `&U` when `T: Deref<Target=U>`
+1. 1.From `&T` to `&U` when `T: Deref<Target=U>`
+1. 2.From `&mut T` to `&mut U` when `T: DerefMut<Target=U>`
+1. 3.From `&mut T` to `&U` when `T: Deref<Target=U>`
 
 The first two cases are the same except that the second implements mutability.
 The first case states that if you have a `&T`, and `T` implements `Deref` to
@@ -701,7 +701,7 @@ be used to release resources like files or network connections.
 
 We’re introducing `Drop` in the context of smart pointers because the
 functionality of the `Drop` trait is almost always used when implementing a
-smart pointer. For example, when a `Box<T>` is dropped it will deallocate the
+smart pointer. For example, when a `Box<T>` is dropped, it will deallocate the
 space on the heap that the box points to.
 
 In some languages, for some types, the programmer must call code to free memory
@@ -827,7 +827,7 @@ error[E0040]: explicit use of destructor method
 
 This error message states that we’re not allowed to explicitly call `drop`. The
 error message uses the term *destructor*, which is the general programming term
-for a function that cleans up an instance. A *destructor* is analogous to a
+for a function that cleans up an instance. A destructor is analogous to a
 *constructor*, which creates an instance. The `drop` function in Rust is one
 particular destructor.
 
@@ -1074,7 +1074,7 @@ At each point in the program where the reference count changes, we print the
 reference count, which we get by calling the `Rc::strong_count` function. This
 function is named `strong_count` rather than `count` because the `Rc<T>` type
 also has a `weak_count`; we’ll see what `weak_count` is used for in “Preventing
-Reference Cycles Using Weak<T>” on page XX.
+Reference Cycles Using Weak<T>” on page 346.
 
 This code prints the following:
 
@@ -1156,8 +1156,8 @@ beyond the scope of this book but is an interesting topic to research.
 Because some analysis is impossible, if the Rust compiler can’t be sure the
 code complies with the ownership rules, it might reject a correct program; in
 this way, it’s conservative. If Rust accepted an incorrect program, users
-wouldn’t be able to trust in the guarantees Rust makes. However, if Rust
-rejects a correct program, the programmer will be inconvenienced, but nothing
+wouldn’t be able to trust the guarantees Rust makes. However, if Rust rejects a
+correct program, the programmer will be inconvenienced, but nothing
 catastrophic can occur. The `RefCell<T>` type is useful when you’re sure your
 code follows the borrowing rules but the compiler is unable to understand and
 guarantee that.
@@ -1588,13 +1588,13 @@ variable named `value` [1] so we can access it directly later. Then we create a
 than transferring ownership from `value` to `a` or having `a` borrow from
 `value`.
 
-We wrap the list `a` in an `Rc<T>` so when we create lists `b` and `c`, they
-can both refer to `a`, which is what we did in Listing 15-18.
+We wrap the list `a` in an `Rc<T>` so that when we create lists `b` and `c`,
+they can both refer to `a`, which is what we did in Listing 15-18.
 
 After we’ve created the lists in `a`, `b`, and `c`, we want to add 10 to the
 value in `value` [3]. We do this by calling `borrow_mut` on `value`, which uses
 the automatic dereferencing feature we discussed in “Where’s the -> Operator?”
-on page XX to dereference the `Rc<T>` to the inner `RefCell<T>` value. The
+on page 99 to dereference the `Rc<T>` to the inner `RefCell<T>` value. The
 `borrow_mut` method returns a `RefMut<T>` smart pointer, and we use the
 dereference operator on it and change the inner value.
 
@@ -1704,7 +1704,7 @@ fn main() {
     );
 
     // Uncomment the next line to see that we have a cycle;
-    // it will overflow the stack
+    // it will overflow the stack.
     // println!("a next item = {:?}", a.tail());
 }
 ```
@@ -1744,14 +1744,14 @@ dropped at this point because its reference count is 1, not 0. Then Rust drops
 `a`, which decreases the reference count of the `a` `Rc<List>` instance from 2
 to 1 as well. This instance’s memory can’t be dropped either, because the other
 `Rc<List>` instance still refers to it. The memory allocated to the list will
-remain uncollected forever. To visualize this reference cycle, we’ve created a
-diagram in Figure 15-4.
+remain uncollected forever. To visualize this reference cycle, we’ve created
+the diagram in Figure 15-4.
 
 Figure 15-4: A reference cycle of lists `a` and `b` pointing to each other
 
 If you uncomment the last `println!` and run the program, Rust will try to
-print this cycle with `a` pointing to `b` pointing to `a` and so forth until it
-overflows the stack.
+print this cycle with `a` pointing to `b` pointing to `a`, and so forth, until
+it overflows the stack.
 
 Compared to a real-world program, the consequences of creating a reference
 cycle in this example aren’t very dire: right after we create the reference
@@ -1782,13 +1782,14 @@ reference cycles.
 
 So far, we’ve demonstrated that calling `Rc::clone` increases the
 `strong_count` of an `Rc<T>` instance, and an `Rc<T>` instance is only cleaned
-up if its `strong_count` is 0. You can also create a *weak reference* to the
+up if its `strong`_count` is 0. You can also create a weak reference to the
 value within an `Rc<T>` instance by calling `Rc::downgrade` and passing a
-reference to the `Rc<T>`. Strong references are how you can share ownership of
-an `Rc<T>` instance. Weak references don’t express an ownership relationship,
-and their count doesn’t affect when an `Rc<T>` instance is cleaned up. They
-won’t cause a reference cycle because any cycle involving some weak references
-will be broken once the strong reference count of values involved is 0.
+reference to the `Rc<T>`. *Strong references* are how you can share ownership
+of an `Rc<T>` instance. *Weak references* don’t express an ownership
+relationship, and their count doesn’t affect when an `Rc<T>` instance is
+cleaned up. They won’t cause a reference cycle because any cycle involving some
+weak references will be broken once the strong reference count of values
+involved is 0.
 
 When you call `Rc::downgrade`, you get a smart pointer of type `Weak<T>`.
 Instead of increasing the `strong_count` in the `Rc<T>` instance by 1, calling
@@ -2032,7 +2033,7 @@ weak reference counts
 
 After `leaf` is created, its `Rc<Node>` has a strong count of 1 and a weak
 count of 0 [1]. In the inner scope [2], we create `branch` and associate it
-with `leaf`, at which point when we print the counts [3], the `Rc<Node>` in
+with `leaf`, at which point, when we print the counts [3], the `Rc<Node>` in
 `branch` will have a strong count of 1 and a weak count of 1 (for `leaf.parent`
 pointing to `branch` with a `Weak<Node>`). When we print the counts in `leaf`
 [4], we’ll see it will have a strong count of 2 because `branch` now has a

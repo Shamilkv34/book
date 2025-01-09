@@ -30,7 +30,7 @@ can find a list of the keywords in Appendix A.
 
 ## Variables and Mutability
 
-As mentioned in “Storing Values with Variables” on page XX, by default,
+As mentioned in “Storing Values with Variables” on page 16, by default,
 variables are immutable. This is one of many nudges Rust gives you to write
 your code in a way that takes advantage of the safety and easy concurrency that
 Rust offers. However, you still have the option to make your variables mutable.
@@ -137,7 +137,7 @@ First, you aren’t allowed to use `mut` with constants. Constants aren’t just
 immutable by default—they’re always immutable. You declare constants using the
 `const` keyword instead of the `let` keyword, and the type of the value *must*
 be annotated. We’ll cover types and type annotations in “Data Types” on page
-XX, so don’t worry about the details right now. Just know that you must always
+36, so don’t worry about the details right now. Just know that you must always
 annotate the type.
 
 Constants can be declared in any scope, including the global scope, which makes
@@ -270,11 +270,11 @@ Every value in Rust is of a certain *data type*, which tells Rust what kind of
 data is being specified so it knows how to work with that data. We’ll look at
 two data type subsets: scalar and compound.
 
-Keep in mind that Rust is a *statically typed* language, which means that it
+Keep in mind that Rust is a *statically* *typed* language, which means that it
 must know the types of all variables at compile time. The compiler can usually
 infer what type we want to use based on the value and how we use it. In cases
 when many types are possible, such as when we converted a `String` to a numeric
-type using `parse` in “Comparing the Guess to the Secret Number” on page XX, we
+type using `parse` in “Comparing the Guess to the Secret Number” on page 23, we
 must add a type annotation, like this:
 
 ```
@@ -314,7 +314,7 @@ the type of an integer value.
 
 Table 3-1: Integer Types in Rust
 
-| Length     | Signed     | Unsigned |
+| Length | Signed | Unsigned |
 |---|---|---|
 | 8-bit | `i8` | `u8` |
 | 16-bit | `i16` | `u16` |
@@ -332,11 +332,11 @@ the sign matters, a number is shown with a plus sign or a minus sign; however,
 when it’s safe to assume the number is positive, it’s shown with no sign.
 Signed numbers are stored using two’s complement representation.
 
-Each signed variant can store numbers from -(2<sup>n - 1</sup>) to 2<sup>n -
-1</sup> - 1 inclusive, where *n* is the number of bits that variant uses. So an
-`i8` can store numbers from -(2<sup>7</sup>) to 2<sup>7</sup> - 1, which equals
--128 to 127. Unsigned variants can store numbers from 0 to 2<sup>n</sup> - 1,
-so a `u8` can store numbers from 0 to 2<sup>8</sup> - 1, which equals 0 to 255.
+Each signed variant can store numbers from –(2<sup>n – 1</sup>) to 2<sup>n –
+1</sup> – 1 inclusive, where *n* is the number of bits that variant uses. So an
+`i8` can store numbers from –(2<sup>7</sup>) to 2<sup>7</sup> – 1, which equals
+–128 to 127. Unsigned variants can store numbers from 0 to 2<sup>n</sup> – 1,
+so a `u8` can store numbers from 0 to 2<sup>8</sup> – 1, which equals 0 to 255.
 
 Additionally, the `isize` and `usize` types depend on the architecture of the
 computer your program is running on, which is denoted in the table as “arch”:
@@ -372,7 +372,7 @@ some sort of collection.
 When you’re compiling in debug mode, Rust includes checks for integer overflow
 that cause your program to *panic* at runtime if this behavior occurs. Rust
 uses the term *panicking* when a program exits with an error; we’ll discuss
-panics in more depth in “Unrecoverable Errors with panic!” on page XX.
+panics in more depth in “Unrecoverable Errors with panic!” on page 162.
 >
 > When you’re compiling in release mode with the `--release` flag, Rust does
 *not* include checks for integer overflow that cause panics. Instead, if
@@ -388,11 +388,10 @@ of methods provided by the standard library for primitive numeric types:
 >
 > * Wrap in all modes with the `wrapping_*` methods, such as `wrapping_add`.
 > * Return the `None` value if there is overflow with the `checked_*` methods.
-> * Return the value and a boolean indicating whether there was overflow with
+> * Return the value and a Boolean indicating whether there was overflow with
 the `overflowing_*` methods.
 > * Saturate at the value’s minimum or maximum values with the `saturating_*`
 methods.
-
 #### Floating-Point Types
 
 Rust also has two primitive types for *floating-point numbers*, which are
@@ -467,7 +466,7 @@ fn main() {
 
 The main way to use Boolean values is through conditionals, such as an `if`
 expression. We’ll cover how `if` expressions work in Rust in “Control Flow” on
-page XX.
+page 50.
 
 #### The Character Type
 
@@ -486,14 +485,14 @@ fn main() {
 
 Note that we specify `char` literals with single quotes, as opposed to string
 literals, which use double quotes. Rust’s `char` type is four bytes in size and
-represents a Unicode Scalar Value, which means it can represent a lot more than
+represents a Unicode scalar value, which means it can represent a lot more than
 just ASCII. Accented letters; Chinese, Japanese, and Korean characters; emoji;
-and zero-width spaces are all valid `char` values in Rust. Unicode Scalar
-Values range from `U+0000` to `U+D7FF` and `U+E000` to `U+10FFFF` inclusive.
+and zero-width spaces are all valid `char` values in Rust. Unicode scalar
+values range from `U+0000` to `U+D7FF` and `U+E000` to `U+10FFFF` inclusive.
 However, a “character” isn’t really a concept in Unicode, so your human
 intuition for what a “character” is may not match up with what a `char` is in
 Rust. We’ll discuss this topic in detail in “Storing UTF-8 Encoded Text with
-Strings” on page XX.
+Strings” on page 147.
 
 ### Compound Types
 
@@ -738,10 +737,11 @@ body begins and ends.
 
 We can call any function we’ve defined by entering its name followed by a set
 of parentheses. Because `another_function` is defined in the program, it can be
-called from inside the `main` function. Note that we defined `another_function`
-*after* the `main` function in the source code; we could have defined it before
-as well. Rust doesn’t care where you define your functions, only that they’re
-defined somewhere in a scope that can be seen by the caller.
+called from inside the `main` function. Note that we defined
+`another`_function` *after* the `main` function in the source code; we could
+have defined it before as well. Rust doesn’t care where you define your
+functions, only that they’re defined somewhere in a scope that can be seen by
+the caller.
 
 Let’s start a new binary project named *functions* to explore functions
 further. Place the `another_function` example in *src/main.rs* and run it. You
@@ -850,9 +850,11 @@ understand. Other languages don’t have the same distinctions, so let’s look 
 what statements and expressions are and how their differences affect the bodies
 of functions.
 
-* **Statements **: are instructions that perform some action and do not return
-a value.
-* **Expressions **: evaluate to a resultant value. Let’s look at some examples.
+* Statements are instructions that perform some action and do not return a
+value.
+* Expressions evaluate to a resultant value.
+
+Let’s look at some examples.
 
 We’ve actually already used statements and expressions. Creating a variable and
 assigning a value to it with the `let` keyword is a statement. In Listing 3-1,
@@ -1067,9 +1069,9 @@ comment continues until the end of the line. For comments that extend beyond a
 single line, you’ll need to include `//` on each line, like this:
 
 ```
-// So we’re doing something complicated here, long enough that we need
+// So we're doing something complicated here, long enough that we need
 // multiple lines of comments to do it! Whew! Hopefully, this comment will
-// explain what’s going on.
+// explain what's going on.
 ```
 
 Comments can also be placed at the end of lines containing code:
@@ -1078,7 +1080,7 @@ Filename: src/main.rs
 
 ```
 fn main() {
-    let lucky_number = 7; // I’m feeling lucky today
+    let lucky_number = 7; // I'm feeling lucky today
 }
 ```
 
@@ -1089,13 +1091,13 @@ Filename: src/main.rs
 
 ```
 fn main() {
-    // I’m feeling lucky today
+    // I'm feeling lucky today
     let lucky_number = 7;
 }
 ```
 
 Rust also has another kind of comment, documentation comments, which we’ll
-discuss in “Publishing a Crate to Crates.io” on page XX.
+discuss in “Publishing a Crate to Crates.io” on page 297.
 
 ## Control Flow
 
@@ -1133,7 +1135,7 @@ value less than 5. We place the block of code to execute if the condition is
 `true` immediately after the condition inside curly brackets. Blocks of code
 associated with the conditions in `if` expressions are sometimes called *arms*,
 just like the arms in `match` expressions that we discussed in “Comparing the
-Guess to the Secret Number” on page XX.
+Guess to the Secret Number” on page 23.
 
 Optionally, we can also include an `else` expression, which we chose to do
 here, to give the program an alternative block of code to execute should the
@@ -1367,7 +1369,7 @@ fn main() {
 
 When we run this program, we’ll see `again!` printed over and over continuously
 until we stop the program manually. Most terminals support the keyboard
-shortcut ctrl-C to interrupt a program that is stuck in a continual loop. Give
+shortcut CTRL-C to interrupt a program that is stuck in a continual loop. Give
 it a try:
 
 ```
@@ -1382,14 +1384,14 @@ again!
 ^Cagain!
 ```
 
-The symbol `^C` represents where you pressed ctrl-C. You may or may not see the
+The symbol `^C` represents where you pressed CTRL-C. You may or may not see the
 word `again!` printed after the `^C`, depending on where the code was in the
 loop when it received the interrupt signal.
 
 Fortunately, Rust also provides a way to break out of a loop using code. You
 can place the `break` keyword within the loop to tell the program when to stop
 executing the loop. Recall that we did this in the guessing game in “Quitting
-After a Correct Guess” on page XX to exit the program when the user won the
+After a Correct Guess” on page 28 to exit the program when the user won the
 game by guessing the correct number.
 
 We also used `continue` in the guessing game, which in a loop tells the program
@@ -1464,7 +1466,7 @@ fn main() {
 The outer loop has the label `'counting_up`, and it will count up from 0 to 2.
 The inner loop without a label counts down from 10 to 9. The first `break` that
 doesn’t specify a label will exit the inner loop only. The `break
-'counting_up;` statement will exit the outer loop. This code prints:
+'counting`_up;` statement will exit the outer loop. This code prints:
 
 ```
    Compiling loops v0.1.0 (file:///projects/loops)

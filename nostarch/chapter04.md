@@ -50,15 +50,15 @@ in the order it gets them and removes the values in the opposite order. This is
 referred to as *last in, first out*. Think of a stack of plates: when you add
 more plates, you put them on top of the pile, and when you need a plate, you
 take one off the top. Adding or removing plates from the middle or bottom
-wouldn’t work as well! Adding data is called *pushing onto the stack*, and
-removing data is called *popping off the stack*. All data stored on the stack
+wouldn’t work as well! Adding data is called *pushing* *onto the* *stack*, and
+removing data is called *popping off the* *stack*. All data stored on the stack
 must have a known, fixed size. Data with an unknown size at compile time or a
 size that might change must be stored on the heap instead.
 >
 > The heap is less organized: when you put data on the heap, you request a
 certain amount of space. The memory allocator finds an empty spot in the heap
 that is big enough, marks it as being in use, and returns a *pointer*, which is
-the address of that location. This process is called *allocating on the heap*
+the address of that location. This process is called *allocating on the* *heap*
 and is sometimes abbreviated as just *allocating* (pushing values onto the
 stack is not considered allocating). Because the pointer to the heap is a
 known, fixed size, you can store the pointer on the stack, but when you want
@@ -148,7 +148,7 @@ understanding by introducing the `String` type.
 ### The String Type
 
 To illustrate the rules of ownership, we need a data type that is more complex
-than those we covered in “Data Types” on page XX. The types covered previously
+than those we covered in “Data Types” on page 36. The types covered previously
 are of a known size, can be stored on the stack and popped off the stack when
 their scope is over, and can be quickly and trivially copied to make a new,
 independent instance if another part of code needs to use the same value in a
@@ -177,9 +177,9 @@ let s = String::from("hello");
 
 The double colon `::` operator allows us to namespace this particular `from`
 function under the `String` type rather than using some sort of name like
-`string_from`. We’ll discuss this syntax more in “Method Syntax” on page XX,
+`string_from`. We’ll discuss this syntax more in “Method Syntax” on page 97,
 and when we talk about namespacing with modules in “Paths for Referring to an
-Item in the Module Tree” on page XX.
+Item in the Module Tree” on page 125.
 
 This kind of string *can* be mutated:
 
@@ -188,7 +188,7 @@ let mut s = String::from("hello");
 
 s.push_str(", world!"); // push_str() appends a literal to a String
 
-println!("{s}"); // This will print `hello, world!`
+println!("{s}"); // this will print `hello, world!`
 ```
 
 So, what’s the difference here? Why can `String` be mutated but literals
@@ -245,7 +245,7 @@ and it’s where the author of `String` can put the code to return the memory.
 Rust calls `drop` automatically at the closing curly bracket.
 
 > Note: In C++, this pattern of deallocating resources at the end of an item’s
-lifetime is sometimes called *Resource Acquisition Is Initialization* *(RAII)*.
+lifetime is sometimes called *Resource Acquisition Is Initialization (RAII)*.
 The `drop` function in Rust will be familiar to you if you’ve used RAII
 patterns.
 
@@ -422,7 +422,7 @@ Rust won’t let us annotate a type with `Copy` if the type, or any of its parts
 has implemented the `Drop` trait. If the type needs something special to happen
 when the value goes out of scope and we add the `Copy` annotation to that type,
 we’ll get a compile-time error. To learn about how to add the `Copy` annotation
-to your type to implement the trait, see “Derivable Traits” on page XX.
+to your type to implement the trait, see Appendix C.
 
 So, what types implement the `Copy` trait? You can check the documentation for
 the given type to be sure, but as a general rule, any group of simple scalar
@@ -444,8 +444,9 @@ assigning a value to a variable. Passing a variable to a function will move or
 copy, just as assignment does. Listing 4-3 has an example with some annotations
 showing where variables go into and out of scope.
 
+Filename: src/main.rs
+
 ```
-// src/main.rs
 fn main() {
     let s = String::from("hello");  // s comes into scope
 
@@ -459,16 +460,16 @@ fn main() {
                                     // use x afterward
 
 } // Here, x goes out of scope, then s. However, because s's value was moved,
-  // nothing special happens
+  // nothing special happens.
 
 fn takes_ownership(some_string: String) { // some_string comes into scope
     println!("{some_string}");
 } // Here, some_string goes out of scope and `drop` is called. The backing
-  // memory is freed
+  // memory is freed.
 
 fn makes_copy(some_integer: i32) { // some_integer comes into scope
     println!("{some_integer}");
-} // Here, some_integer goes out of scope. Nothing special happens
+} // Here, some_integer goes out of scope. Nothing special happens.
 ```
 
 Listing 4-3: Functions with ownership and scope annotated
@@ -484,8 +485,9 @@ Returning values can also transfer ownership. Listing 4-4 shows an example of a
 function that returns some value, with similar annotations as those in Listing
 4-3.
 
+Filename: src/main.rs
+
 ```
-// src/main.rs
 fn main() {
     let s1 = gives_ownership();         // gives_ownership moves its return
                                         // value into s1
@@ -496,11 +498,11 @@ fn main() {
                                         // takes_and_gives_back, which also
                                         // moves its return value into s3
 } // Here, s3 goes out of scope and is dropped. s2 was moved, so nothing
-  // happens. s1 goes out of scope and is dropped
+  // happens. s1 goes out of scope and is dropped.
 
-fn gives_ownership() -> String {             // gives_ownership will move its
-                                             // return value into the function
-                                             // that calls it
+fn gives_ownership() -> String {        // gives_ownership will move its
+                                        // return value into the function
+                                        // that calls it
 
     let some_string = String::from("yours"); // some_string comes into scope
 
@@ -509,7 +511,7 @@ fn gives_ownership() -> String {             // gives_ownership will move its
                                              // function
 }
 
-// This function takes a String and returns a String
+// This function takes a String and returns a String.
 fn takes_and_gives_back(a_string: String) -> String { // a_string comes into
                                                       // scope
 
@@ -588,14 +590,14 @@ fn calculate_length(s: &String) -> usize {
 
 First, notice that all the tuple code in the variable declaration and the
 function return value is gone. Second, note that we pass `&s1` into
-`calculate_length` and, in its definition, we take `&String` rather than
+`calculate`_length` and, in its definition, we take `&String` rather than
 `String`. These ampersands represent *references*, and they allow you to refer
 to some value without taking ownership of it. Figure 4-5 depicts this concept.
 
 Figure 4-5: A diagram of `&String s` pointing at `String s1`
 
 > Note: The opposite of referencing by using `&` is *dereferencing*, which is
-accomplished with the dereference operator, `*`. We’ll see some uses of the
+accomplished with the dereference operator, `*. We’ll see some uses of the
 dereference operator in Chapter 8 and discuss details of dereferencing in
 Chapter 15.
 
@@ -618,7 +620,7 @@ the parameter `s` is a reference. Let’s add some explanatory annotations:
 fn calculate_length(s: &String) -> usize { // s is a reference to a String
     s.len()
 } // Here, s goes out of scope. But because it does not have ownership of what
-  // it refers to, the String is not dropped
+  // it refers to, the String is not dropped.
 ```
 
 The scope in which the variable `s` is valid is the same as any function
@@ -806,7 +808,7 @@ let mut s = String::from("hello");
 let r1 = &s; // no problem
 let r2 = &s; // no problem
 println!("{r1} and {r2}");
-// variables r1 and r2 will not be used after this point
+// Variables r1 and r2 will not be used after this point.
 
 let r3 = &mut s; // no problem
 println!("{r3}");
@@ -886,7 +888,7 @@ fn dangle() -> &String { // dangle returns a reference to a String
     let s = String::from("hello"); // s is a new String
 
     &s // we return a reference to the String, s
-} // Here, s goes out of scope and is dropped, so its memory goes away
+} // Here, s goes out of scope and is dropped, so its memory goes away.
   // Danger!
 ```
 
@@ -936,7 +938,7 @@ slices, to understand the problem that slices will solve:
 fn first_word(s: &String) -> ?
 ```
 
-The `first_word` function has a `&String` as a parameter. We don’t want
+The `first_word` function has a parameter of type `&String`. We don’t want
 ownership, so this is fine. But what should we return? We don’t really have a
 way to talk about *part* of a string. However, we could return the index of the
 end of the word, indicated by a space. Let’s try that, as shown in Listing 4-7.
@@ -947,7 +949,7 @@ Filename: src/main.rs
 fn first_word(s: &String) -> usize {
   1 let bytes = s.as_bytes();
 
-    for (2 i, &item) in 3 bytes.iter().enumerate() {
+    for (2i, &item) in 3 bytes.iter().enumerate() {
       4 if item == b' ' {
             return i;
         }
@@ -1040,13 +1042,13 @@ let world = &s[6..11];
 
 Rather than a reference to the entire `String`, `hello` is a reference to a
 portion of the `String`, specified in the extra `[0..5]` bit. We create slices
-using a range within brackets by specifying `[starting_index..ending_index]`,
-where `starting_index` is the first position in the slice and `ending_index` is
-one more than the last position in the slice. Internally, the slice data
-structure stores the starting position and the length of the slice, which
-corresponds to `ending_index` minus `starting_index`. So, in the case of `let
-world = &s[6..11];`, `world` would be a slice that contains a pointer to the
-byte at index 6 of `s` with a length value of `5`.
+using a range within brackets by specifying `[`starting_index..ending_index`]`,
+where starting_index is the first position in the slice and ending_index is one
+more than the last position in the slice. Internally, the slice data structure
+stores the starting position and the length of the slice, which corresponds to
+ending_index minus starting_index. So, in the case of `let world = &s[6..11];`,
+`world` would be a slice that contains a pointer to the byte at index 6 of `s`
+with a length value of `5`.
 
 Figure 4-6 shows this in a diagram.
 
@@ -1091,7 +1093,7 @@ boundaries. If you attempt to create a string slice in the middle of a
 multibyte character, your program will exit with an error. For the purposes of
 introducing string slices, we are assuming ASCII only in this section; a more
 thorough discussion of UTF-8 handling is in “Storing UTF-8 Encoded Text with
-Strings” on page XX.
+Strings” on page 147.
 
 With all this information in mind, let’s rewrite `first_word` to return a
 slice. The type that signifies “string slice” is written as `&str`:
@@ -1213,7 +1215,7 @@ the type of the `s` parameter
 If we have a string slice, we can pass that directly. If we have a `String`, we
 can pass a slice of the `String` or a reference to the `String`. This
 flexibility takes advantage of *deref coercions*, a feature we will cover in
-“Implicit Deref Coercions with Functions and Methods” on page XX.
+“Implicit Deref Coercions with Functions and Methods” on page 325.
 
 Defining a function to take a string slice instead of a reference to a `String`
 makes our API more general and useful without losing any functionality:
@@ -1225,17 +1227,17 @@ fn main() {
     let my_string = String::from("hello world");
 
     // `first_word` works on slices of `String`s, whether partial
-    // or whole
+    // or whole.
     let word = first_word(&my_string[0..6]);
     let word = first_word(&my_string[..]);
     // `first_word` also works on references to `String`s, which
-    // are equivalent to whole slices of `String`s
+    // are equivalent to whole slices of `String`s.
     let word = first_word(&my_string);
 
     let my_string_literal = "hello world";
 
     // `first_word` works on slices of string literals,
-    // whether partial or whole
+    // whether partial or whole.
     let word = first_word(&my_string_literal[0..6]);
     let word = first_word(&my_string_literal[..]);
 
@@ -1274,7 +1276,7 @@ detail when we talk about vectors in Chapter 8.
 
 The concepts of ownership, borrowing, and slices ensure memory safety in Rust
 programs at compile time. The Rust language gives you control over your memory
-usage in the same way as other systems programming languages, but having the
+usage in the same way as other systems’ programming languages, but having the
 owner of data automatically clean up that data when the owner goes out of scope
 means you don’t have to write and debug extra code to get this control.
 
